@@ -14,54 +14,48 @@ const Header: React.FC = () => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${scrolled
-            ? 'py-4 bg-brand-dark/40 backdrop-blur-2xl border-b border-white/[0.08] shadow-2xl'
-            : 'py-8 bg-transparent'
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
+          ? 'py-3 bg-[#0a0a0a] border-b border-white/10 shadow-lg'
+          : 'py-4 bg-[#0a0a0a]/98 border-b border-white/5'
           }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
 
             {/* Logo Section */}
-            <a href="/" className="flex items-center gap-4 group cursor-pointer">
-              <div className="relative">
-                <div className="absolute inset-0 bg-brand-green blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
-                <div className="relative bg-white/5 border border-white/10 p-2 rounded-2xl group-hover:bg-brand-green/10 transition-colors">
-                  <img
-                    src="/logo.png"
-                    alt="Logo"
-                    className="h-8 w-auto object-contain transition-transform duration-500 group-hover:scale-110"
-                  />
-                </div>
+            <a href="/" className="flex items-center gap-3">
+              <div className="bg-white/10 border border-white/20 p-2 rounded-lg">
+                <img
+                  src="/logo.png"
+                  alt="Logo"
+                  className="h-8 w-auto object-contain"
+                />
               </div>
               <div className="flex flex-col">
-                <span className="font-display font-bold text-2xl text-white tracking-tighter leading-none">
+                <span className="font-bold text-xl text-white">
                   ROBS<span className="text-brand-green">CASH4CARS</span>
                 </span>
-                <span className="text-[10px] text-gray-500 tracking-[0.4em] font-black uppercase mt-1">
-                  Edmonton's Premium Buyer
+                <span className="text-[10px] text-gray-400 uppercase tracking-wider">
+                  Edmonton's Trusted Buyer
                 </span>
               </div>
             </a>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center bg-white/5 backdrop-blur-md rounded-full px-2 p-1 border border-white/5">
-              <a href="#how-it-works" className="px-5 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-full transition-all">Process</a>
-              <a href="#gallery" className="px-5 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-full transition-all">Recent Buys</a>
-              <a href="#areas" className="px-5 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-full transition-all">Locations</a>
+            <div className="hidden md:flex items-center gap-6">
+              <a href="#how-it-works" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">Process</a>
+              <a href="#gallery" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">Recent Buys</a>
+              <a href="#areas" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">Locations</a>
             </div>
 
             {/* Call Action */}
             <div className="hidden md:flex items-center gap-4">
               <a
                 href="tel:780-222-4106"
-                className="group relative inline-flex items-center gap-2 px-6 py-2.5 bg-brand-green text-brand-dark font-display font-bold text-lg tracking-wide rounded-lg overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_20px_rgba(163,230,53,0.4)]"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-green text-brand-dark font-bold rounded-lg hover:bg-brand-green/90 transition-colors"
               >
-                <span className="relative z-10 flex items-center gap-2">
-                  <Phone size={18} className="fill-brand-dark" />
-                  780-222-4106
-                </span>
-                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                <Phone size={18} />
+                780-222-4106
               </a>
             </div>
 

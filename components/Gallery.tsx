@@ -11,8 +11,8 @@ const Gallery: React.FC = () => {
           </div>
           <div className="w-full mt-8 overflow-hidden rounded-2xl animate-pulse-subtle">
             <img
-              src="/uploaded_image_0_1767291802458.png"
-              alt="Success Stories - Various car conditions we buy"
+              src="/conditions-image.png"
+              alt="Vehicles we buy - Won't start, electrical issues, damaged, bad engine, old & rusty"
               className="w-full h-auto object-cover transition-transform duration-700 hover:scale-105"
             />
           </div>

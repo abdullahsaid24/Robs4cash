@@ -1,89 +1,88 @@
+
 import React from 'react';
 import { Phone, Truck, Wallet, CheckCircle2, MapPin, Sparkles } from 'lucide-react';
 
 const Process: React.FC = () => {
   return (
-    <section id="how-it-works" className="py-24 relative overflow-hidden">
+    <section id="how-it-works" className="relative py-24 overflow-hidden bg-[#0a0a0a]">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0 opacity-40">
+        <img
+          src="/process-image.png"
+          alt="Tow Service Background"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a]/90 to-[#0a0a0a]"></div>
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div className="space-y-4">
-            <h2 className="text-4xl md:text-6xl font-display font-bold text-white tracking-tight">
-              THE <span className="text-gradient">PROCESS.</span>
-            </h2>
-            <p className="text-gray-400 max-w-md text-lg">Three simple steps to turn your unwanted vehicle into cash today.</p>
-          </div>
-          <div className="glass-card px-6 py-3 rounded-2xl flex items-center gap-3 border-brand-green/20">
-            <div className="w-2 h-2 rounded-full bg-brand-green animate-pulse shadow-[0_0_10px_#a3e635]"></div>
-            <span className="text-white font-bold text-sm tracking-widest uppercase">Avg. Pickup: 4 Hours</span>
-          </div>
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-6">
+            How It Works
+          </h2>
+          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+            Three simple steps to turn your unwanted vehicle into cash today.
+          </p>
         </div>
 
-        {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+        {/* Standard Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-          {/* Step 1: Large Feature */}
-          <div className="md:col-span-7 bento-item group overflow-hidden relative">
-            <div className="absolute -right-20 -top-20 w-64 h-64 bg-brand-green/5 rounded-full blur-3xl group-hover:bg-brand-green/10 transition-colors"></div>
-            <div className="relative z-10 space-y-6">
-              <div className="w-16 h-16 rounded-2xl bg-brand-green/10 flex items-center justify-center text-brand-green">
-                <Phone size={32} />
-              </div>
-              <div>
-                <h3 className="text-3xl font-display font-bold text-white mb-4">01. GET AN INSTANT OFFER</h3>
-                <p className="text-gray-400 leading-relaxed text-lg max-w-md">
-                  Call or use our smart quote tool. Our AI-driven valuation ensures you get the <span className="text-white font-semibold">absolute maximum</span> market value immediately.
-                </p>
-              </div>
-              <ul className="space-y-3">
-                {['No hidden fees', 'Guaranteed pricing', '24/7 Support'].map(item => (
-                  <li key={item} className="flex items-center gap-2 text-sm text-gray-300 font-medium">
-                    <CheckCircle2 size={16} className="text-brand-green" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
+          {/* Step 1 */}
+          <div className="bg-[#111]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-[#151515] transition-colors group">
+            <div className="w-14 h-14 rounded-xl bg-brand-green/10 flex items-center justify-center text-brand-green mb-6 group-hover:bg-brand-green/20 transition-colors">
+              <Phone size={28} />
+            </div>
+            <h3 className="text-xl font-bold text-white mb-3">
+              1. Get Instant Offer
+            </h3>
+            <p className="text-gray-400 leading-relaxed mb-6">
+              Call us or use our online quote tool. Get a competitive market offer in minutes based on your vehicle details.
+            </p>
+            <ul className="space-y-3">
+              {['No hidden fees', 'Guaranteed pricing', 'Quick response'].map(item => (
+                <li key={item} className="flex items-center gap-3 text-sm text-gray-300">
+                  <CheckCircle2 size={16} className="text-brand-green shrink-0" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Step 2 */}
+          <div className="bg-[#111]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-[#151515] transition-colors group">
+            <div className="w-14 h-14 rounded-xl bg-brand-green/10 flex items-center justify-center text-brand-green mb-6 group-hover:bg-brand-green/20 transition-colors">
+              <Truck size={28} />
+            </div>
+            <h3 className="text-xl font-bold text-white mb-3">
+              2. Free Towing
+            </h3>
+            <p className="text-gray-400 leading-relaxed mb-6">
+              We schedule a pickup at your convenience. Home, work, or roadside—our professional fleet handles everything.
+            </p>
+            <div className="inline-flex items-center gap-2 text-xs font-bold text-brand-green uppercase tracking-wider bg-brand-green/5 px-3 py-1.5 rounded-full border border-brand-green/10">
+              <MapPin size={14} />
+              Serving All Edmonton
             </div>
           </div>
 
-          {/* Step 2: Tall/Medium Feature */}
-          <div className="md:col-span-5 bento-item group bg-brand-green/[0.02] border-brand-green/10">
-            <div className="space-y-6 flex flex-col h-full justify-between">
-              <div className="w-16 h-16 rounded-2xl bg-brand-green text-brand-dark flex items-center justify-center shadow-lg shadow-brand-green/20">
-                <Truck size={32} />
-              </div>
-              <div>
-                <h3 className="text-3xl font-display font-bold text-white mb-4">02. FREE TOWING</h3>
-                <p className="text-gray-400 leading-relaxed">
-                  We schedule a pickup at your convenience. Home, work, or roadside—our professional fleet handles everything.
-                </p>
-              </div>
-              <div className="pt-6 border-t border-white/5 flex items-center gap-3 text-brand-green font-bold text-xs uppercase tracking-[0.2em]">
-                <MapPin size={14} />
-                Serving All Edmonton Areas
-              </div>
+          {/* Step 3 */}
+          <div className="bg-[#111]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8 hover:bg-[#151515] transition-colors group">
+            <div className="w-14 h-14 rounded-xl bg-brand-green/10 flex items-center justify-center text-brand-green mb-6 group-hover:bg-brand-green/20 transition-colors">
+              <Wallet size={28} />
             </div>
-          </div>
-
-          {/* Step 3: Wide Bottom Feature */}
-          <div className="md:col-span-12 bento-item group flex flex-col md:flex-row items-center gap-12">
-            <div className="flex-1 space-y-6">
-              <div className="w-16 h-16 rounded-2xl bg-brand-green/10 flex items-center justify-center text-brand-green">
-                <Wallet size={32} />
-              </div>
-              <div className="space-y-4">
-                <h3 className="text-3xl font-display font-bold text-white">03. INSTANT PAYMENT</h3>
-                <p className="text-gray-400 text-lg leading-relaxed">
-                  No waiting for checks or transfers. Our driver verifies the vehicle condition and hands you the <span className="text-white font-semibold italic">full agreed amount</span> in cash on the spot.
-                </p>
-              </div>
-            </div>
-            <div className="w-full md:w-1/3 glass-card p-6 rounded-2xl border-brand-green/10 flex flex-col items-center justify-center text-center gap-4 bg-brand-green/5 animate-glow-pulse">
-              <Sparkles size={40} className="text-brand-green" />
-              <div className="text-white font-display font-bold text-2xl uppercase tracking-tighter leading-none">
-                The Fastest <br /> Way To Sell
-              </div>
+            <h3 className="text-xl font-bold text-white mb-3">
+              3. Instant Payment
+            </h3>
+            <p className="text-gray-400 leading-relaxed mb-6">
+              Get paid on the spot. No waiting for checks or transfers—driver hands you cash immediately upon verification.
+            </p>
+            <div className="pt-4 border-t border-white/5">
+              <p className="text-brand-green font-semibold flex items-center gap-2 text-sm">
+                <Sparkles size={16} /> Same-Day Service
+              </p>
             </div>
           </div>
 

@@ -9,16 +9,14 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer id="areas" className="bg-[#050505] text-gray-500 py-24 border-t border-white/[0.03] relative overflow-hidden">
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-brand-green/2 blur-[150px] pointer-events-none"></div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-16">
+    <footer id="areas" className="bg-[#0a0a0a] text-gray-500 py-16 border-t border-white/10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
 
           {/* Brand Column */}
-          <div className="col-span-1 md:col-span-1 space-y-8">
-            <div className="flex flex-col gap-4">
-              <div className="bg-white/5 border border-white/10 p-2.5 rounded-2xl w-fit">
+          <div className="col-span-1 md:col-span-1 space-y-6">
+            <div className="flex flex-col gap-3">
+              <div className="bg-white/10 border border-white/20 p-2 rounded-lg w-fit">
                 <img
                   src="/logo.png"
                   alt="Logo"
@@ -26,35 +24,34 @@ const Footer: React.FC = () => {
                 />
               </div>
               <div className="flex flex-col">
-                <span className="font-display font-black text-2xl tracking-tighter text-white">
+                <span className="font-bold text-xl text-white">
                   ROBS<span className="text-brand-green">CASH4CARS</span>
                 </span>
-                <span className="text-[10px] text-gray-600 tracking-[0.3em] font-black uppercase">Established Edmonton Buyer</span>
+                <span className="text-[10px] text-gray-400 uppercase tracking-wider">Trusted Edmonton Buyer</span>
               </div>
             </div>
-            <p className="text-sm leading-relaxed text-gray-500 max-w-xs">
-              Alberta's most trusted vehicle acquisition service. Transparent pricing, legal paperwork handling, and instant cash payouts.
+            <p className="text-sm leading-relaxed text-gray-400 max-w-xs">
+              Edmonton's trusted vehicle buying service. Fair pricing, professional service, and instant cash payments.
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white font-black mb-8 font-display tracking-[0.3em] text-[10px] uppercase">Navigation</h3>
-            <ul className="space-y-4 text-xs font-bold tracking-widest uppercase">
-              <li><a href="#how-it-works" className="hover:text-brand-green transition-all duration-300 flex items-center gap-2 group"><div className="w-1 h-1 bg-brand-green rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div> Market Process</a></li>
-              <li><a href="#quote" className="hover:text-brand-green transition-all duration-300 flex items-center gap-2 group"><div className="w-1 h-1 bg-brand-green rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div> Get Payout</a></li>
-              <li><a href="#gallery" className="hover:text-brand-green transition-all duration-300 flex items-center gap-2 group"><div className="w-1 h-1 bg-brand-green rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div> Recent Buys</a></li>
-              <li><a href="tel:780-222-4106" className="text-brand-green hover:scale-105 transition-transform inline-block">780-222-4106</a></li>
+            <h3 className="text-white font-bold mb-6 text-sm uppercase tracking-wide">Quick Links</h3>
+            <ul className="space-y-3 text-sm">
+              <li><a href="#how-it-works" className="hover:text-brand-green transition-colors">How It Works</a></li>
+              <li><a href="#quote" className="hover:text-brand-green transition-colors">Get Quote</a></li>
+              <li><a href="#gallery" className="hover:text-brand-green transition-colors">Recent Buys</a></li>
+              <li><a href="tel:780-222-4106" className="text-brand-green hover:underline">780-222-4106</a></li>
             </ul>
           </div>
 
           {/* Service Areas */}
           <div className="col-span-1 md:col-span-2">
-            <h3 className="text-white font-black mb-8 font-display tracking-[0.3em] text-[10px] uppercase">Service Zones</h3>
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-y-4 gap-x-8">
+            <h3 className="text-white font-bold mb-6 text-sm uppercase tracking-wide">Service Areas</h3>
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-y-3 gap-x-6">
               {serviceAreas.map((area) => (
-                <div key={area} className="flex items-center gap-3 text-xs font-medium hover:text-white transition-colors cursor-default group">
-                  <div className="w-1.5 h-px bg-brand-green/30 group-hover:w-3 transition-all"></div>
+                <div key={area} className="text-sm text-gray-400 hover:text-white transition-colors">
                   {area}
                 </div>
               ))}
@@ -62,12 +59,11 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="border-t border-white/[0.05] mt-24 pt-12 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-bold tracking-[0.2em] uppercase text-gray-600">
-          <p>© {new Date().getFullYear()} Robs Cash 4 Cars • Edmonton AB</p>
-          <div className="flex gap-8">
-            <a href="#" className="hover:text-white transition-colors">Privacy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms</a>
-            <a href="#" className="text-gray-400">Design: Elite</a>
+        <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500">
+          <p>© {new Date().getFullYear()} Robs Cash 4 Cars. All rights reserved.</p>
+          <div className="flex gap-6">
+            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
           </div>
         </div>
       </div>

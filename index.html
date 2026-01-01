@@ -90,30 +90,6 @@
 
 <body>
   <div id="root"></div>
-  <script src="https://unpkg.com/scrollreveal"></script>
-  <script>
-    window.addEventListener('load', () => {
-      const sr = ScrollReveal({
-        origin: 'bottom',
-        distance: '40px',
-        duration: 1000,
-        delay: 200,
-        rotate: { x: 0, y: 0, z: 0 },
-        opacity: 0,
-        scale: 1,
-        easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-        mobile: true,
-        reset: false,
-        useDelay: 'always',
-        viewFactor: 0.2,
-      });
-
-      sr.reveal('.animate-fade-in');
-      sr.reveal('.bento-item', { interval: 150 });
-      sr.reveal('.glass-card', { interval: 100 });
-      sr.reveal('.hero-content > *', { interval: 100, origin: 'left' });
-    });
-  </script>
   <script type="module" src="/index.tsx"></script>
 </body>
 
