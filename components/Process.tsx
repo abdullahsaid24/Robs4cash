@@ -1,18 +1,21 @@
-
 import React from 'react';
 import { Phone, Truck, Wallet, CheckCircle2, MapPin, Sparkles } from 'lucide-react';
+import { useSiteContentContext } from '../contexts/SiteContentContext';
+import EditableText from './admin/EditableText';
 
 const Process: React.FC = () => {
+  const { content } = useSiteContentContext();
+
   return (
     <section id="how-it-works" className="relative py-24 overflow-hidden bg-[#0a0a0a]">
       {/* Background Image */}
-      <div className="absolute inset-0 z-0 opacity-40">
+      <div className="absolute inset-0 z-0 opacity-50 md:opacity-40">
         <img
           src="/process-image.png"
           alt="Tow Service Background"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a]/90 to-[#0a0a0a]"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/50 via-transparent to-[#0a0a0a]/70 md:from-[#0a0a0a] md:via-[#0a0a0a]/90 md:to-[#0a0a0a]"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -20,11 +23,11 @@ const Process: React.FC = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-6">
-            How It Works
+            <EditableText section="process" field="title" value={content.process.title} />
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-            Three simple steps to turn your unwanted vehicle into cash today.
-          </p>
+          <div className="text-gray-400 max-w-2xl mx-auto text-lg">
+            <EditableText section="process" field="subtitle" value={content.process.subtitle} />
+          </div>
         </div>
 
         {/* Standard Grid */}
@@ -36,11 +39,11 @@ const Process: React.FC = () => {
               <Phone size={28} />
             </div>
             <h3 className="text-xl font-bold text-white mb-3">
-              1. Get Instant Offer
+              <EditableText section="process" field="step1Title" value={content.process.step1Title} />
             </h3>
-            <p className="text-gray-400 leading-relaxed mb-6">
-              Call us or use our online quote tool. Get a competitive market offer in minutes based on your vehicle details.
-            </p>
+            <div className="text-gray-400 leading-relaxed mb-6">
+              <EditableText section="process" field="step1Text" value={content.process.step1Text} multiline />
+            </div>
             <ul className="space-y-3">
               {['No hidden fees', 'Guaranteed pricing', 'Quick response'].map(item => (
                 <li key={item} className="flex items-center gap-3 text-sm text-gray-300">
@@ -57,11 +60,11 @@ const Process: React.FC = () => {
               <Truck size={28} />
             </div>
             <h3 className="text-xl font-bold text-white mb-3">
-              2. Free Towing
+              <EditableText section="process" field="step2Title" value={content.process.step2Title} />
             </h3>
-            <p className="text-gray-400 leading-relaxed mb-6">
-              We schedule a pickup at your convenience. Home, work, or roadside—our professional fleet handles everything.
-            </p>
+            <div className="text-gray-400 leading-relaxed mb-6">
+              <EditableText section="process" field="step2Text" value={content.process.step2Text} multiline />
+            </div>
             <div className="inline-flex items-center gap-2 text-xs font-bold text-brand-green uppercase tracking-wider bg-brand-green/5 px-3 py-1.5 rounded-full border border-brand-green/10">
               <MapPin size={14} />
               Serving All Edmonton
@@ -74,11 +77,11 @@ const Process: React.FC = () => {
               <Wallet size={28} />
             </div>
             <h3 className="text-xl font-bold text-white mb-3">
-              3. Instant Payment
+              <EditableText section="process" field="step3Title" value={content.process.step3Title} />
             </h3>
-            <p className="text-gray-400 leading-relaxed mb-6">
-              Get paid on the spot. No waiting for checks or transfers—driver hands you cash immediately upon verification.
-            </p>
+            <div className="text-gray-400 leading-relaxed mb-6">
+              <EditableText section="process" field="step3Text" value={content.process.step3Text} multiline />
+            </div>
             <div className="pt-4 border-t border-white/5">
               <p className="text-brand-green font-semibold flex items-center gap-2 text-sm">
                 <Sparkles size={16} /> Same-Day Service

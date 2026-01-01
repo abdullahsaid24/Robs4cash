@@ -1,8 +1,12 @@
 import React from 'react';
 import QuoteForm from './QuoteForm';
 import { Star, Shield, Zap, Clock } from 'lucide-react';
+import { useSiteContentContext } from '../contexts/SiteContentContext';
+import EditableText from './admin/EditableText';
 
 const Hero: React.FC = () => {
+  const { content } = useSiteContentContext();
+
   return (
     <section id="hero" className="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden">
       {/* Background Image & Overlay */}
@@ -12,7 +16,7 @@ const Hero: React.FC = () => {
           alt="Tow Truck Service"
           className="w-full h-full object-cover object-left"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0f1011]/95 via-[#0f1011]/85 to-[#0f1011]"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0f1011]/60 via-[#0f1011]/50 to-[#0f1011]/80 md:bg-gradient-to-r md:from-[#0f1011]/95 md:via-[#0f1011]/85 md:to-[#0f1011]"></div>
       </div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -22,17 +26,36 @@ const Hero: React.FC = () => {
           <div className="space-y-6 max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-brand-green/20 border border-brand-green/30 text-brand-green text-xs font-bold uppercase tracking-wider">
               <Star size={14} fill="currentColor" />
-              Top Rated in Edmonton
+              <EditableText
+                section="hero"
+                field="badge"
+                value={content.hero.badge}
+              />
             </div>
 
             <h1 className="text-3xl lg:text-5xl font-display font-bold text-white leading-tight" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
-              Get Instant Cash <br />
-              <span className="text-brand-green">For Your Vehicle</span>
+              <EditableText
+                section="hero"
+                field="title"
+                value={content.hero.title}
+              /> <br />
+              <span className="text-brand-green">
+                <EditableText
+                  section="hero"
+                  field="titleHighlight"
+                  value={content.hero.titleHighlight}
+                />
+              </span>
             </h1>
 
-            <p className="text-lg text-gray-300 leading-relaxed font-medium" style={{ textShadow: '0 1px 8px rgba(0,0,0,0.7)' }}>
-              We pay top dollar for any car, truck, or SUV. Free towing, same-day pickup, and cash on the spot. No hidden fees.
-            </p>
+            <div className="text-lg text-gray-300 leading-relaxed font-medium" style={{ textShadow: '0 1px 8px rgba(0,0,0,0.7)' }}>
+              <EditableText
+                section="hero"
+                field="subtitle"
+                value={content.hero.subtitle}
+                multiline
+              />
+            </div>
 
             <div className="flex flex-wrap gap-6 pt-4">
               <div className="flex items-center gap-3 bg-black/30 backdrop-blur-sm px-4 py-2 rounded-lg">

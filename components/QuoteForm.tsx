@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { QuoteFormData } from '../types';
-import { Check, ChevronRight, ChevronLeft, Car, AlertCircle, User, Zap } from 'lucide-react';
+import { Check, ChevronRight, ChevronLeft, Car, AlertCircle, User, Zap, Loader2 } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 
 const QuoteForm: React.FC = () => {
   const [step, setStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [formData, setFormData] = useState<QuoteFormData>({
     year: '',
     make: '',
@@ -28,10 +31,57 @@ const QuoteForm: React.FC = () => {
 
   const handlePrev = () => setStep(prev => prev - 1);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert('Request sent! We will call you shortly.');
+
+    if (!formData.name || !formData.phone) {
+      alert('Please fill in your contact details');
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const { error } = await supabase
+        .from('leads')
+        .insert([
+          {
+            year: formData.year,
+            make: formData.make,
+            model: formData.model,
+            condition: formData.condition,
+            missing_parts: formData.missingParts,
+            name: formData.name,
+            phone: formData.phone,
+            email: formData.email || null,
+          }
+        ]);
+
+      if (error) throw error;
+
+      setIsSuccess(true);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('There was an error submitting your request. Please call us directly at 780-222-4106.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  if (isSuccess) {
+    return (
+      <div id="quote" className="w-full max-w-lg backdrop-blur-2xl bg-[#1a1d24]/95 border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
+        <div className="p-12 text-center">
+          <div className="w-20 h-20 bg-brand-green rounded-full flex items-center justify-center mx-auto mb-6">
+            <Check size={40} className="text-brand-dark" />
+          </div>
+          <h3 className="text-2xl font-bold text-white mb-4">Request Received!</h3>
+          <p className="text-gray-400 mb-6">We'll call you shortly with your quote for your {formData.year} {formData.make} {formData.model}.</p>
+          <p className="text-brand-green font-bold text-lg">Expect a call within 30 minutes!</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div id="quote" className="w-full max-w-lg backdrop-blur-2xl bg-[#1a1d24]/95 border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
@@ -158,9 +208,19 @@ const QuoteForm: React.FC = () => {
             ) : (
               <button
                 onClick={handleSubmit}
-                className="flex-1 bg-brand-green text-brand-dark font-display font-bold py-4 rounded-xl hover:brightness-110 transition-all shadow-xl flex items-center justify-center gap-2 text-lg"
+                disabled={isSubmitting}
+                className="flex-1 bg-brand-green text-brand-dark font-display font-bold py-4 rounded-xl hover:brightness-110 transition-all shadow-xl flex items-center justify-center gap-2 text-lg disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                GET MY OFFER <Zap size={20} fill="currentColor" />
+                {isSubmitting ? (
+                  <>
+                    <Loader2 size={20} className="animate-spin" />
+                    Submitting...
+                  </>
+                ) : (
+                  <>
+                    GET MY OFFER <Zap size={20} fill="currentColor" />
+                  </>
+                )}
               </button>
             )}
           </div>

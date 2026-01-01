@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Phone, CarFront, Zap } from 'lucide-react';
+import { useSiteContent } from '../hooks/useSiteContent';
 
 const Header: React.FC = () => {
+  const { content } = useSiteContent();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -51,11 +53,12 @@ const Header: React.FC = () => {
             {/* Call Action */}
             <div className="hidden md:flex items-center gap-4">
               <a
-                href="tel:780-222-4106"
+                href={`tel:${content.footer.phone}`}
                 className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-green text-brand-dark font-bold rounded-lg hover:bg-brand-green/90 transition-colors"
+                suppressHydrationWarning
               >
                 <Phone size={18} />
-                780-222-4106
+                {content.footer.phone}
               </a>
             </div>
 
@@ -95,9 +98,9 @@ const Header: React.FC = () => {
 
           <div className="space-y-4">
             <p className="text-gray-500 text-sm text-center uppercase tracking-widest">Ready to sell?</p>
-            <a href="tel:780-222-4106" className="flex items-center justify-center gap-3 w-full bg-brand-green text-brand-dark font-bold text-xl py-4 rounded-xl shadow-lg shadow-brand-green/20">
+            <a href={`tel:${content.footer.phone}`} className="flex items-center justify-center gap-3 w-full bg-brand-green text-brand-dark font-bold text-xl py-4 rounded-xl shadow-lg shadow-brand-green/20">
               <Phone size={24} className="fill-brand-dark" />
-              CALL 780-222-4106
+              CALL {content.footer.phone}
             </a>
           </div>
         </div>
