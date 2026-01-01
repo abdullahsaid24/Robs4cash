@@ -244,6 +244,7 @@ const QuoteForm: React.FC = () => {
               </button>
             ) : (
               <button
+                type="button"
                 onClick={handleSubmit}
                 disabled={isSubmitting}
                 className="flex-1 bg-brand-green text-brand-dark font-display font-bold py-4 rounded-xl hover:brightness-110 transition-all shadow-xl flex items-center justify-center gap-2 text-lg disabled:opacity-70 disabled:cursor-not-allowed"

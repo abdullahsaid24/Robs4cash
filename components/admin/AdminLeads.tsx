@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabase';
-import { Phone, Calendar, Car, Download, Search, ChevronLeft, ChevronRight, Trash2 } from 'lucide-react';
+import { Phone, Calendar, Car, Download, Search, ChevronLeft, ChevronRight, Trash2, X, AlertTriangle } from 'lucide-react';
 
 interface Lead {
     id: number;
@@ -21,6 +21,8 @@ const AdminLeads: React.FC = () => {
     const [search, setSearch] = useState('');
     const [page, setPage] = useState(0);
     const [total, setTotal] = useState(0);
+    const [deleteConfirm, setDeleteConfirm] = useState<Lead | null>(null);
+    const [deleting, setDeleting] = useState(false);
     const perPage = 10;
 
     useEffect(() => {
@@ -41,19 +43,25 @@ const AdminLeads: React.FC = () => {
         setLoading(false);
     };
 
-    const handleDelete = async (id: number) => {
-        if (!confirm('Are you sure you want to delete this lead?')) return;
+    const handleDelete = async () => {
+        if (!deleteConfirm) return;
+        setDeleting(true);
 
         const { error } = await supabase
             .from('leads')
             .delete()
-            .eq('id', id);
+            .eq('id', deleteConfirm.id);
 
         if (error) {
+            console.error('Delete error:', error);
             alert('Failed to delete lead: ' + error.message);
         } else {
-            fetchLeads();
+            // Remove from local state immediately for responsive UI
+            setLeads(prev => prev.filter(l => l.id !== deleteConfirm.id));
+            setTotal(prev => prev - 1);
         }
+        setDeleting(false);
+        setDeleteConfirm(null);
     };
 
     const exportCSV = () => {
@@ -90,6 +98,42 @@ const AdminLeads: React.FC = () => {
 
     return (
         <div>
+            {/* Delete Confirmation Modal */}
+            {deleteConfirm && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
+                    <div className="bg-[#1a1a1a] border border-white/10 rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
+                        <div className="flex items-center gap-4 mb-6">
+                            <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center">
+                                <AlertTriangle size={24} className="text-red-500" />
+                            </div>
+                            <div>
+                                <h3 className="text-xl font-bold text-white">Delete Lead?</h3>
+                                <p className="text-gray-400 text-sm">This action cannot be undone.</p>
+                            </div>
+                        </div>
+                        <div className="bg-white/5 rounded-lg p-4 mb-6">
+                            <p className="text-white font-medium">{deleteConfirm.name}</p>
+                            <p className="text-gray-400 text-sm">{deleteConfirm.year} {deleteConfirm.make} {deleteConfirm.model}</p>
+                        </div>
+                        <div className="flex gap-4">
+                            <button
+                                onClick={() => setDeleteConfirm(null)}
+                                className="flex-1 px-4 py-3 rounded-lg border border-white/20 text-gray-300 font-medium hover:bg-white/5 transition-colors"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={handleDelete}
+                                disabled={deleting}
+                                className="flex-1 px-4 py-3 rounded-lg bg-red-500 text-white font-bold hover:bg-red-600 transition-colors disabled:opacity-50"
+                            >
+                                {deleting ? 'Deleting...' : 'Delete'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <h1 className="text-3xl font-bold text-white">Leads ({total})</h1>
                 <div className="flex gap-4">
@@ -171,7 +215,7 @@ const AdminLeads: React.FC = () => {
                                             </td>
                                             <td className="px-6 py-4 text-right">
                                                 <button
-                                                    onClick={() => handleDelete(lead.id)}
+                                                    onClick={() => setDeleteConfirm(lead)}
                                                     className="text-gray-500 hover:text-red-500 transition-colors p-2"
                                                     title="Delete Lead"
                                                 >

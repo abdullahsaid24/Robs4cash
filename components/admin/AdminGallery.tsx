@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabase';
-import { Image, Trash2, Upload, Loader2, GripVertical } from 'lucide-react';
+import { Image, Trash2, Upload, Loader2, GripVertical, AlertTriangle } from 'lucide-react';
 
 interface GalleryImage {
     id: number;
@@ -13,6 +13,8 @@ const AdminGallery: React.FC = () => {
     const [images, setImages] = useState<GalleryImage[]>([]);
     const [loading, setLoading] = useState(true);
     const [uploading, setUploading] = useState(false);
+    const [deleteConfirm, setDeleteConfirm] = useState<GalleryImage | null>(null);
+    const [deleting, setDeleting] = useState(false);
 
     useEffect(() => {
         fetchImages();
@@ -68,25 +70,76 @@ const AdminGallery: React.FC = () => {
         }
     };
 
-    const handleDelete = async (id: number, imageUrl: string) => {
-        if (!confirm('Are you sure you want to delete this image?')) return;
+    const handleDelete = async () => {
+        if (!deleteConfirm) return;
+        setDeleting(true);
 
-        // Extract filename from URL
-        const fileName = imageUrl.split('/').pop();
+        try {
+            // Extract filename from URL
+            const fileName = deleteConfirm.image_url.split('/').pop();
 
-        // Delete from storage
-        if (fileName) {
-            await supabase.storage.from('gallery').remove([fileName]);
+            // Delete from storage
+            if (fileName) {
+                await supabase.storage.from('gallery').remove([fileName]);
+            }
+
+            // Delete from database
+            const { error } = await supabase.from('gallery_images').delete().eq('id', deleteConfirm.id);
+
+            if (error) throw error;
+
+            // Optimistic UI update
+            setImages(prev => prev.filter(img => img.id !== deleteConfirm.id));
+        } catch (error: any) {
+            console.error('Delete error:', error);
+            alert('Failed to delete image: ' + error.message);
+        } finally {
+            setDeleting(false);
+            setDeleteConfirm(null);
         }
-
-        // Delete from database
-        await supabase.from('gallery_images').delete().eq('id', id);
-
-        await fetchImages();
     };
 
     return (
         <div>
+            {/* Delete Confirmation Modal */}
+            {deleteConfirm && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
+                    <div className="bg-[#1a1a1a] border border-white/10 rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
+                        <div className="flex items-center gap-4 mb-6">
+                            <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center">
+                                <AlertTriangle size={24} className="text-red-500" />
+                            </div>
+                            <div>
+                                <h3 className="text-xl font-bold text-white">Delete Image?</h3>
+                                <p className="text-gray-400 text-sm">This action cannot be undone.</p>
+                            </div>
+                        </div>
+                        <div className="mb-6">
+                            <img
+                                src={deleteConfirm.image_url}
+                                alt={deleteConfirm.title}
+                                className="w-full h-32 object-cover rounded-lg"
+                            />
+                        </div>
+                        <div className="flex gap-4">
+                            <button
+                                onClick={() => setDeleteConfirm(null)}
+                                className="flex-1 px-4 py-3 rounded-lg border border-white/20 text-gray-300 font-medium hover:bg-white/5 transition-colors"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={handleDelete}
+                                disabled={deleting}
+                                className="flex-1 px-4 py-3 rounded-lg bg-red-500 text-white font-bold hover:bg-red-600 transition-colors disabled:opacity-50"
+                            >
+                                {deleting ? 'Deleting...' : 'Delete'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <div className="flex items-center justify-between mb-8">
                 <h1 className="text-3xl font-bold text-white">Gallery</h1>
                 <label className="bg-brand-green text-brand-dark font-bold px-6 py-3 rounded-lg hover:brightness-110 transition-all cursor-pointer flex items-center gap-2">
@@ -131,7 +184,7 @@ const AdminGallery: React.FC = () => {
                                 />
                                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center">
                                     <button
-                                        onClick={() => handleDelete(image.id, image.image_url)}
+                                        onClick={() => setDeleteConfirm(image)}
                                         className="bg-red-500 text-white p-3 rounded-lg hover:bg-red-600 transition-colors"
                                     >
                                         <Trash2 size={20} />
