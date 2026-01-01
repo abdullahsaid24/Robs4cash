@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { QuoteFormData } from '../types';
 import { Check, ChevronRight, ChevronLeft, Car, AlertCircle, User, Zap, Loader2 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
+import { useSiteContentContext } from '../contexts/SiteContentContext';
+import EditableText from './admin/EditableText';
 
 const QuoteForm: React.FC = () => {
+  const { content } = useSiteContentContext();
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -34,6 +37,12 @@ const QuoteForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Prevent 'Enter' key or early clicks from validating Step 3 too early
+    if (step < 3) {
+      handleNext();
+      return;
+    }
+
     if (!formData.name || !formData.phone) {
       alert('Please fill in your contact details');
       return;
@@ -42,7 +51,8 @@ const QuoteForm: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase
+      // 1. Submit to Supabase
+      const { error: supabaseError } = await supabase
         .from('leads')
         .insert([
           {
@@ -57,7 +67,26 @@ const QuoteForm: React.FC = () => {
           }
         ]);
 
-      if (error) throw error;
+      if (supabaseError) throw supabaseError;
+
+      // 2. Submit to Web3Forms
+      const web3FormData = new FormData();
+      web3FormData.append("access_key", "89eb0916-cfe9-41f9-a0cb-14a8ecf84a2a");
+      web3FormData.append("subject", `New Vehicle Lead from ${formData.name}`);
+      web3FormData.append("from_name", "Rob's Cash 4 Cars");
+
+      // Map and append all fields
+      web3FormData.append("Name", formData.name);
+      web3FormData.append("Phone", formData.phone);
+      web3FormData.append("Email", formData.email || "Not provided");
+      web3FormData.append("Vehicle", `${formData.year} ${formData.make} ${formData.model}`);
+      web3FormData.append("Condition", formData.condition);
+      web3FormData.append("Missing Parts", formData.missingParts);
+
+      await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: web3FormData
+      });
 
       setIsSuccess(true);
     } catch (error) {
@@ -75,9 +104,15 @@ const QuoteForm: React.FC = () => {
           <div className="w-20 h-20 bg-brand-green rounded-full flex items-center justify-center mx-auto mb-6">
             <Check size={40} className="text-brand-dark" />
           </div>
-          <h3 className="text-2xl font-bold text-white mb-4">Request Received!</h3>
-          <p className="text-gray-400 mb-6">We'll call you shortly with your quote for your {formData.year} {formData.make} {formData.model}.</p>
-          <p className="text-brand-green font-bold text-lg">Expect a call within 30 minutes!</p>
+          <h3 className="text-2xl font-bold text-white mb-4">
+            <EditableText section="quote" field="successTitle" value={content.quote.successTitle} />
+          </h3>
+          <p className="text-gray-400 mb-6">
+            <EditableText section="quote" field="successSubtitle" value={content.quote.successSubtitle} />
+          </p>
+          <p className="text-brand-green font-bold text-lg">
+            <EditableText section="quote" field="successNote" value={content.quote.successNote} />
+          </p>
         </div>
       </div>
     );
@@ -89,9 +124,11 @@ const QuoteForm: React.FC = () => {
       <div className="bg-gradient-to-br from-[#2a2d34] to-[#1a1d24] p-8 border-b border-white/5">
         <h3 className="text-2xl font-display font-bold text-white flex items-center gap-2">
           <Zap className="text-brand-green" size={28} fill="currentColor" />
-          GET INSTANT OFFER
+          <EditableText section="quote" field="title" value={content.quote.title} />
         </h3>
-        <p className="text-gray-400 font-medium text-sm mt-2">Guaranteed highest payout in Edmonton.</p>
+        <p className="text-gray-400 font-medium text-sm mt-2">
+          <EditableText section="quote" field="subtitle" value={content.quote.subtitle} />
+        </p>
       </div>
 
       <div className="p-8">

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Phone, CarFront, Zap } from 'lucide-react';
-import { useSiteContent } from '../hooks/useSiteContent';
+import { useSiteContentContext } from '../contexts/SiteContentContext';
+import EditableText from './admin/EditableText';
 
 const Header: React.FC = () => {
-  const { content } = useSiteContent();
+  const { content } = useSiteContentContext();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -35,10 +36,13 @@ const Header: React.FC = () => {
               </div>
               <div className="flex flex-col">
                 <span className="font-bold text-xl text-white">
-                  ROBS<span className="text-brand-green">CASH4CARS</span>
+                  <EditableText section="header" field="brandName" value={content.header.brandName} />
+                  <span className="text-brand-green">
+                    <EditableText section="header" field="brandHighlight" value={content.header.brandHighlight} />
+                  </span>
                 </span>
                 <span className="text-[10px] text-gray-400 uppercase tracking-wider">
-                  Edmonton's Trusted Buyer
+                  <EditableText section="header" field="brandSubtitle" value={content.header.brandSubtitle} />
                 </span>
               </div>
             </a>

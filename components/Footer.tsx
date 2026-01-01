@@ -7,11 +7,7 @@ import EditableText from './admin/EditableText';
 const Footer: React.FC = () => {
   const { content } = useSiteContentContext();
 
-  const serviceAreas = [
-    "Edmonton", "St. Albert", "Sherwood Park", "Leduc",
-    "Spruce Grove", "Stony Plain", "Fort Saskatchewan",
-    "Beaumont", "Nisku", "Devon"
-  ];
+  const serviceAreas = content.footer.service_areas.split(',').map(s => s.trim()).filter(Boolean);
 
   return (
     <footer id="areas" className="bg-[#0a0a0a] text-gray-500 py-16 border-t border-white/10">
@@ -30,9 +26,14 @@ const Footer: React.FC = () => {
               </div>
               <div className="flex flex-col">
                 <span className="font-bold text-xl text-white">
-                  ROBS<span className="text-brand-green">CASH4CARS</span>
+                  <EditableText section="header" field="brandName" value={content.header.brandName} />
+                  <span className="text-brand-green">
+                    <EditableText section="header" field="brandHighlight" value={content.header.brandHighlight} />
+                  </span>
                 </span>
-                <span className="text-[10px] text-gray-400 uppercase tracking-wider">Trusted Edmonton Buyer</span>
+                <span className="text-[10px] text-gray-400 uppercase tracking-wider">
+                  <EditableText section="header" field="brandSubtitle" value={content.header.brandSubtitle} />
+                </span>
               </div>
             </div>
             <div className="text-sm leading-relaxed text-gray-400 max-w-xs">

@@ -11,7 +11,7 @@ const Process: React.FC = () => {
       {/* Background Image */}
       <div className="absolute inset-0 z-0 opacity-50 md:opacity-40">
         <img
-          src="/process-image.png"
+          src={content.process.image_url}
           alt="Tow Service Background"
           className="w-full h-full object-cover object-center"
         />

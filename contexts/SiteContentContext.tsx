@@ -16,10 +16,12 @@ const defaultContent: ContentData = {
         title: 'Get Instant Cash',
         titleHighlight: 'For Your Vehicle',
         subtitle: 'We pay top dollar for any car, truck, or SUV. Free towing, same-day pickup, and cash on the spot. No hidden fees.',
+        image_url: '/hero-image.png',
     },
     process: {
         title: 'How It Works',
         subtitle: 'Three simple steps to turn your unwanted vehicle into cash today.',
+        image_url: '/process-bg.jpg',
         step1Title: '1. Get Instant Offer',
         step1Text: 'Call us or use our online quote tool. Get a competitive market offer in minutes based on your vehicle details.',
         step2Title: '2. Free Towing',
@@ -27,13 +29,26 @@ const defaultContent: ContentData = {
         step3Title: '3. Instant Payment',
         step3Text: 'Get paid on the spot. No waiting for checks or transfers—driver hands you cash immediately upon verification.',
     },
+    quote: {
+        title: 'GET INSTANT OFFER',
+        subtitle: 'Guaranteed highest payout in Edmonton.',
+        successTitle: 'Request Received!',
+        successSubtitle: 'We\'ll call you shortly with your quote.',
+        successNote: 'Expect a call within 30 minutes!',
+    },
     gallery: {
         title: 'SUCCESS STORIES',
         subtitle: 'Turn Your Unwanted Car Into Cash Today!',
     },
+    header: {
+        brandName: 'ROBS',
+        brandHighlight: 'CASH4CARS',
+        brandSubtitle: 'Edmonton\'s Trusted Buyer',
+    },
     footer: {
         phone: '780-222-4106',
         tagline: 'Edmonton\'s trusted vehicle buying service. Fair pricing, professional service, and instant cash payments.',
+        service_areas: 'Edmonton, St. Albert, Sherwood Park, Leduc, Spruce Grove, Stony Plain, Fort Saskatchewan, Beaumont, Nisku, Devon',
     },
 };
 
@@ -63,7 +78,16 @@ export const SiteContentProvider: React.FC<{ children: React.ReactNode }> = ({ c
                 .single();
 
             if (data?.content) {
-                setContent(data.content);
+                // Deep merge: ensure all new fields have defaults even if DB is outdated
+                const mergedContent: ContentData = {
+                    hero: { ...defaultContent.hero, ...data.content.hero },
+                    process: { ...defaultContent.process, ...data.content.process },
+                    quote: { ...defaultContent.quote, ...data.content.quote },
+                    gallery: { ...defaultContent.gallery, ...data.content.gallery },
+                    header: { ...defaultContent.header, ...data.content.header },
+                    footer: { ...defaultContent.footer, ...data.content.footer },
+                };
+                setContent(mergedContent);
             }
         } catch (error) {
             console.log('Using default content');

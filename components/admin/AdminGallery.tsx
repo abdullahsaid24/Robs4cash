@@ -111,16 +111,6 @@ const AdminGallery: React.FC = () => {
                 </label>
             </div>
 
-            <div className="bg-[#111] border border-white/10 rounded-xl p-6 mb-6">
-                <p className="text-gray-400 text-sm">
-                    <strong className="text-white">Note:</strong> Before uploading images, you need to create a Storage bucket in Supabase:
-                </p>
-                <ol className="text-gray-400 text-sm mt-2 list-decimal list-inside space-y-1">
-                    <li>Go to Supabase → Storage</li>
-                    <li>Create a new bucket called "gallery"</li>
-                    <li>Set it to Public</li>
-                </ol>
-            </div>
 
             {loading ? (
                 <div className="text-white">Loading...</div>

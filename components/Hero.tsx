@@ -12,7 +12,7 @@ const Hero: React.FC = () => {
       {/* Background Image & Overlay */}
       <div className="absolute inset-0 z-0">
         <img
-          src="/hero-image.png"
+          src={content.hero.image_url}
           alt="Tow Truck Service"
           className="w-full h-full object-cover object-left"
         />
