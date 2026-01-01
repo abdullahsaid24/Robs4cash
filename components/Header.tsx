@@ -14,29 +14,31 @@ const Header: React.FC = () => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out ${scrolled
-            ? 'py-3 bg-brand-dark/80 backdrop-blur-xl border-b border-white/5 shadow-2xl'
-            : 'py-6 bg-transparent'
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${scrolled
+            ? 'py-4 bg-brand-dark/40 backdrop-blur-2xl border-b border-white/[0.08] shadow-2xl'
+            : 'py-8 bg-transparent'
           }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
 
             {/* Logo Section */}
-            <a href="/" className="flex items-center gap-3 group cursor-pointer">
+            <a href="/" className="flex items-center gap-4 group cursor-pointer">
               <div className="relative">
-                <div className="absolute inset-0 bg-brand-green blur-md opacity-20 group-hover:opacity-40 transition-opacity"></div>
-                <img
-                  src="/logo.png"
-                  alt="Robs Cash 4 Cars Logo"
-                  className="relative h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-110"
-                />
+                <div className="absolute inset-0 bg-brand-green blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-500"></div>
+                <div className="relative bg-white/5 border border-white/10 p-2 rounded-2xl group-hover:bg-brand-green/10 transition-colors">
+                  <img
+                    src="/logo.png"
+                    alt="Logo"
+                    className="h-8 w-auto object-contain transition-transform duration-500 group-hover:scale-110"
+                  />
+                </div>
               </div>
               <div className="flex flex-col">
                 <span className="font-display font-bold text-2xl text-white tracking-tighter leading-none">
                   ROBS<span className="text-brand-green">CASH4CARS</span>
                 </span>
-                <span className="text-[10px] text-gray-400 tracking-[0.3em] font-medium uppercase">
+                <span className="text-[10px] text-gray-500 tracking-[0.4em] font-black uppercase mt-1">
                   Edmonton's Premium Buyer
                 </span>
               </div>

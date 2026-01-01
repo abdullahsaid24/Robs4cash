@@ -9,47 +9,52 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer id="areas" className="bg-black text-gray-500 py-16 border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+    <footer id="areas" className="bg-[#050505] text-gray-500 py-24 border-t border-white/[0.03] relative overflow-hidden">
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-brand-green/2 blur-[150px] pointer-events-none"></div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-16">
 
           {/* Brand Column */}
-          <div className="col-span-1 md:col-span-1">
-            <div className="flex items-center gap-3 mb-6">
-              <img
-                src="/logo.png"
-                alt="Robs Cash 4 Cars Logo"
-                className="h-10 w-auto object-contain"
-              />
-              <span className="font-display font-bold text-xl tracking-wide text-white">ROBS CASH 4 CARS</span>
+          <div className="col-span-1 md:col-span-1 space-y-8">
+            <div className="flex flex-col gap-4">
+              <div className="bg-white/5 border border-white/10 p-2.5 rounded-2xl w-fit">
+                <img
+                  src="/logo.png"
+                  alt="Logo"
+                  className="h-10 w-auto object-contain"
+                />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-display font-black text-2xl tracking-tighter text-white">
+                  ROBS<span className="text-brand-green">CASH4CARS</span>
+                </span>
+                <span className="text-[10px] text-gray-600 tracking-[0.3em] font-black uppercase">Established Edmonton Buyer</span>
+              </div>
             </div>
-            <p className="text-sm mb-6 leading-relaxed">
-              Edmonton's premier scrap car buying service. We leverage technology to offer the best rates and fastest pickup times in Alberta.
+            <p className="text-sm leading-relaxed text-gray-500 max-w-xs">
+              Alberta's most trusted vehicle acquisition service. Transparent pricing, legal paperwork handling, and instant cash payouts.
             </p>
-            <div className="flex items-center gap-2 text-white font-bold hover:text-brand-green transition-colors cursor-pointer">
-              <Phone size={16} className="text-brand-green" />
-              <a href="tel:780-222-4106">780-222-4106</a>
-            </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white font-bold mb-6 font-display tracking-widest text-sm">NAVIGATE</h3>
-            <ul className="space-y-3 text-sm">
-              <li><a href="#how-it-works" className="hover:text-brand-green transition-colors">Process</a></li>
-              <li><a href="#quote" className="hover:text-brand-green transition-colors">Get Offer</a></li>
-              <li><a href="#gallery" className="hover:text-brand-green transition-colors">Inventory</a></li>
-              <li><a href="#" className="hover:text-brand-green transition-colors">Contact</a></li>
+            <h3 className="text-white font-black mb-8 font-display tracking-[0.3em] text-[10px] uppercase">Navigation</h3>
+            <ul className="space-y-4 text-xs font-bold tracking-widest uppercase">
+              <li><a href="#how-it-works" className="hover:text-brand-green transition-all duration-300 flex items-center gap-2 group"><div className="w-1 h-1 bg-brand-green rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div> Market Process</a></li>
+              <li><a href="#quote" className="hover:text-brand-green transition-all duration-300 flex items-center gap-2 group"><div className="w-1 h-1 bg-brand-green rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div> Get Payout</a></li>
+              <li><a href="#gallery" className="hover:text-brand-green transition-all duration-300 flex items-center gap-2 group"><div className="w-1 h-1 bg-brand-green rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div> Recent Buys</a></li>
+              <li><a href="tel:780-222-4106" className="text-brand-green hover:scale-105 transition-transform inline-block">780-222-4106</a></li>
             </ul>
           </div>
 
-          {/* Service Areas (SEO Fix) */}
+          {/* Service Areas */}
           <div className="col-span-1 md:col-span-2">
-            <h3 className="text-white font-bold mb-6 font-display tracking-widest text-sm">SERVICE ZONES</h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-y-3 gap-x-4">
+            <h3 className="text-white font-black mb-8 font-display tracking-[0.3em] text-[10px] uppercase">Service Zones</h3>
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-y-4 gap-x-8">
               {serviceAreas.map((area) => (
-                <div key={area} className="flex items-center gap-2 text-sm hover:text-white transition-colors cursor-default">
-                  <MapPin size={12} className="text-brand-green" />
+                <div key={area} className="flex items-center gap-3 text-xs font-medium hover:text-white transition-colors cursor-default group">
+                  <div className="w-1.5 h-px bg-brand-green/30 group-hover:w-3 transition-all"></div>
                   {area}
                 </div>
               ))}
@@ -57,11 +62,12 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="border-t border-white/5 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
-          <p>&copy; {new Date().getFullYear()} Robs Cash 4 Cars. All rights reserved.</p>
-          <div className="flex gap-4 mt-4 md:mt-0">
-            <a href="#" className="hover:text-white">Privacy Policy</a>
-            <a href="#" className="hover:text-white">Terms of Service</a>
+        <div className="border-t border-white/[0.05] mt-24 pt-12 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-bold tracking-[0.2em] uppercase text-gray-600">
+          <p>© {new Date().getFullYear()} Robs Cash 4 Cars • Edmonton AB</p>
+          <div className="flex gap-8">
+            <a href="#" className="hover:text-white transition-colors">Privacy</a>
+            <a href="#" className="hover:text-white transition-colors">Terms</a>
+            <a href="#" className="text-gray-400">Design: Elite</a>
           </div>
         </div>
       </div>

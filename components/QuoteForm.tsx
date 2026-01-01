@@ -34,51 +34,55 @@ const QuoteForm: React.FC = () => {
   };
 
   return (
-    <div id="quote" className="w-full max-w-md bg-brand-surface/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden relative">
-      {/* Decorative Gradient Blob */}
-      <div className="absolute -top-20 -right-20 w-40 h-40 bg-brand-green/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div id="quote" className="w-full max-w-md glass-card-heavy rounded-3xl overflow-hidden relative group">
+      {/* Dynamic Glow Effect */}
+      <div className="absolute inset-x-0 -top-px h-px bg-gradient-to-r from-transparent via-brand-green/30 to-transparent"></div>
 
       {/* Header */}
-      <div className="p-6 border-b border-white/5 relative z-10">
-        <h3 className="text-2xl font-display font-bold text-white flex items-center gap-2">
-          <Zap className="text-brand-green fill-brand-green" size={20} />
-          GET A QUOTE NOW
+      <div className="p-8 border-b border-white/5 relative z-10">
+        <h3 className="text-2xl font-display font-bold text-white flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-brand-green/10 flex items-center justify-center">
+            <Zap className="text-brand-green" size={20} fill="currentColor" />
+          </div>
+          GET A FAST QUOTE
         </h3>
-        <p className="text-gray-400 text-sm mt-1">Guaranteed highest payout in Edmonton and surrounding areas.</p>
+        <p className="text-gray-400 text-sm mt-2 font-medium">Free evaluation. Edmonton's top rates guaranteed.</p>
 
         {/* Progress Bar */}
-        <div className="mt-4 flex gap-2">
+        <div className="mt-6 flex gap-3">
           {[1, 2, 3].map(i => (
-            <div key={i} className={`h-1.5 flex-1 rounded-full transition-colors duration-300 ${step >= i ? 'bg-brand-green' : 'bg-gray-700'}`}></div>
+            <div key={i} className="flex-1">
+              <div className={`h-1.5 rounded-full transition-all duration-500 ${step >= i ? 'bg-brand-green shadow-[0_0_10px_#a3e635]' : 'bg-white/5'}`}></div>
+            </div>
           ))}
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="p-6 relative z-10 min-h-[300px]">
+      <form onSubmit={handleSubmit} className="p-8 relative z-10 min-h-[320px]">
         {/* Step 1: Vehicle */}
         {step === 1 && (
-          <div className="animate-fade-in space-y-4">
-            <div className="grid grid-cols-3 gap-3">
+          <div className="animate-fade-in space-y-5">
+            <div className="grid grid-cols-3 gap-4">
               <div className="col-span-1">
-                <label className="text-xs font-bold text-gray-500 uppercase mb-1 block">Year</label>
+                <label className="text-[10px] font-black text-gray-500 uppercase mb-2 block tracking-widest">Year</label>
                 <input
-                  type="number" name="year" value={formData.year} onChange={handleChange} placeholder="2010"
-                  className="w-full bg-black/40 border border-white/10 text-white rounded-lg p-3 focus:border-brand-green focus:ring-1 focus:ring-brand-green outline-none transition-all"
+                  type="number" name="year" value={formData.year} onChange={handleChange} placeholder="2012"
+                  className="w-full bg-white/[0.03] border border-white/10 text-white rounded-xl p-4 focus:border-brand-green focus:bg-white/[0.06] outline-none transition-all placeholder:text-gray-600"
                 />
               </div>
               <div className="col-span-2">
-                <label className="text-xs font-bold text-gray-500 uppercase mb-1 block">Make</label>
+                <label className="text-[10px] font-black text-gray-500 uppercase mb-2 block tracking-widest">Make</label>
                 <input
-                  type="text" name="make" value={formData.make} onChange={handleChange} placeholder="Ford"
-                  className="w-full bg-black/40 border border-white/10 text-white rounded-lg p-3 focus:border-brand-green focus:ring-1 focus:ring-brand-green outline-none transition-all"
+                  type="text" name="make" value={formData.make} onChange={handleChange} placeholder="Honda"
+                  className="w-full bg-white/[0.03] border border-white/10 text-white rounded-xl p-4 focus:border-brand-green focus:bg-white/[0.06] outline-none transition-all placeholder:text-gray-600"
                 />
               </div>
             </div>
             <div>
-              <label className="text-xs font-bold text-gray-500 uppercase mb-1 block">Model</label>
+              <label className="text-[10px] font-black text-gray-500 uppercase mb-2 block tracking-widest">Model</label>
               <input
-                type="text" name="model" value={formData.model} onChange={handleChange} placeholder="F-150"
-                className="w-full bg-black/40 border border-white/10 text-white rounded-lg p-3 focus:border-brand-green focus:ring-1 focus:ring-brand-green outline-none transition-all"
+                type="text" name="model" value={formData.model} onChange={handleChange} placeholder="Civic"
+                className="w-full bg-white/[0.03] border border-white/10 text-white rounded-xl p-4 focus:border-brand-green focus:bg-white/[0.06] outline-none transition-all placeholder:text-gray-600"
               />
             </div>
           </div>
@@ -86,28 +90,28 @@ const QuoteForm: React.FC = () => {
 
         {/* Step 2: Condition */}
         {step === 2 && (
-          <div className="animate-fade-in space-y-4">
+          <div className="animate-fade-in space-y-5">
             <div>
-              <label className="text-xs font-bold text-gray-500 uppercase mb-1 block">Vehicle Condition</label>
+              <label className="text-[10px] font-black text-gray-500 uppercase mb-2 block tracking-widest">Condition</label>
               <select
                 name="condition" value={formData.condition} onChange={handleChange}
-                className="w-full bg-black/40 border border-white/10 text-white rounded-lg p-3 focus:border-brand-green focus:ring-1 focus:ring-brand-green outline-none transition-all appearance-none"
+                className="w-full bg-white/[0.03] border border-white/10 text-white rounded-xl p-4 focus:border-brand-green focus:bg-white/[0.06] outline-none transition-all appearance-none cursor-pointer"
               >
-                <option value="">Select status...</option>
-                <option value="Drives">🚗 Drives Well</option>
-                <option value="Needs Work">🔧 Needs Work</option>
-                <option value="No Start">🛑 Won't Start</option>
-                <option value="Wrecked">💥 Wrecked / Accident</option>
+                <option value="" disabled className="bg-brand-surface">Select Condition...</option>
+                <option value="Drives" className="bg-brand-surface">🚗 Drives Well</option>
+                <option value="Needs Work" className="bg-brand-surface">🔧 Needs Work</option>
+                <option value="No Start" className="bg-brand-surface">🛑 Won't Start</option>
+                <option value="Wrecked" className="bg-brand-surface">💥 Wrecked</option>
               </select>
             </div>
             <div>
-              <label className="text-xs font-bold text-gray-500 uppercase mb-1 block">Missing Parts?</label>
+              <label className="text-[10px] font-black text-gray-500 uppercase mb-2 block tracking-widest">Complete Car?</label>
               <select
                 name="missingParts" value={formData.missingParts} onChange={handleChange}
-                className="w-full bg-black/40 border border-white/10 text-white rounded-lg p-3 focus:border-brand-green focus:ring-1 focus:ring-brand-green outline-none transition-all appearance-none"
+                className="w-full bg-white/[0.03] border border-white/10 text-white rounded-xl p-4 focus:border-brand-green focus:bg-white/[0.06] outline-none transition-all appearance-none cursor-pointer"
               >
-                <option value="No">No, Complete Car</option>
-                <option value="Yes">Yes, Missing Parts</option>
+                <option value="No" className="bg-brand-surface">Yes, 100% Complete</option>
+                <option value="Yes" className="bg-brand-surface">No, Parts Missing</option>
               </select>
             </div>
           </div>
@@ -115,19 +119,19 @@ const QuoteForm: React.FC = () => {
 
         {/* Step 3: Contact */}
         {step === 3 && (
-          <div className="animate-fade-in space-y-4">
+          <div className="animate-fade-in space-y-5">
             <div>
-              <label className="text-xs font-bold text-gray-500 uppercase mb-1 block">Your Name</label>
+              <label className="text-[10px] font-black text-gray-500 uppercase mb-2 block tracking-widest">Full Name</label>
               <input
-                type="text" name="name" value={formData.name} onChange={handleChange}
-                className="w-full bg-black/40 border border-white/10 text-white rounded-lg p-3 focus:border-brand-green focus:ring-1 focus:ring-brand-green outline-none transition-all"
+                type="text" name="name" value={formData.name} onChange={handleChange} placeholder="John Doe"
+                className="w-full bg-white/[0.03] border border-white/10 text-white rounded-xl p-4 focus:border-brand-green focus:bg-white/[0.06] outline-none transition-all placeholder:text-gray-600"
               />
             </div>
             <div>
-              <label className="text-xs font-bold text-gray-500 uppercase mb-1 block">Phone Number</label>
+              <label className="text-[10px] font-black text-gray-500 uppercase mb-2 block tracking-widest">Phone Number</label>
               <input
-                type="tel" name="phone" value={formData.phone} onChange={handleChange}
-                className="w-full bg-black/40 border border-white/10 text-white rounded-lg p-3 focus:border-brand-green focus:ring-1 focus:ring-brand-green outline-none transition-all"
+                type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="780-000-0000"
+                className="w-full bg-white/[0.03] border border-white/10 text-white rounded-xl p-4 focus:border-brand-green focus:bg-white/[0.06] outline-none transition-all placeholder:text-gray-600"
               />
             </div>
           </div>
@@ -135,14 +139,14 @@ const QuoteForm: React.FC = () => {
       </form>
 
       {/* Footer / Buttons */}
-      <div className="p-6 pt-0 flex gap-3">
+      <div className="p-8 pt-0 flex gap-4 relative z-10">
         {step > 1 && (
           <button
             type="button"
             onClick={handlePrev}
-            className="px-4 py-3 rounded-lg border border-white/10 text-white hover:bg-white/5 transition-colors"
+            className="w-14 h-14 rounded-xl glass-card flex items-center justify-center text-white hover:bg-white/10 transition-all border-white/10"
           >
-            <ChevronLeft size={20} />
+            <ChevronLeft size={24} />
           </button>
         )}
 
@@ -150,16 +154,20 @@ const QuoteForm: React.FC = () => {
           <button
             type="button"
             onClick={handleNext}
-            className="flex-1 bg-white text-brand-dark font-bold py-3 rounded-lg hover:bg-gray-100 transition-colors flex items-center justify-center gap-2"
+            className="flex-1 btn-primary"
           >
-            Next Step <ChevronRight size={18} />
+            <span className="flex items-center justify-center gap-2">
+              Next Step <ChevronRight size={20} />
+            </span>
           </button>
         ) : (
           <button
             onClick={handleSubmit}
-            className="flex-1 bg-brand-green text-brand-dark font-bold py-3 rounded-lg hover:bg-brand-greenHover transition-all shadow-[0_0_20px_rgba(163,230,53,0.4)] flex items-center justify-center gap-2"
+            className="flex-1 btn-primary animate-glow-pulse"
           >
-            GET CASH NOW <Zap size={18} fill="currentColor" />
+            <span className="flex items-center justify-center gap-2">
+              FINISH & GET OFFER <Zap size={20} fill="currentColor" />
+            </span>
           </button>
         )}
       </div>

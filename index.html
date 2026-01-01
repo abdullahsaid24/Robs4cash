@@ -29,17 +29,18 @@
           },
           colors: {
             brand: {
-              green: '#a3e635', // Lime-400 - Modern Electric Green
-              greenHover: '#84cc16',
-              dark: '#09090b', // Zinc-950 - Darker, richer black
-              surface: '#18181b', // Zinc-900
-              accent: '#27272a', // Zinc-800
+              green: '#a3e635',
+              greenHover: '#bef264',
+              dark: '#050506',
+              surface: '#121214',
+              accent: '#18181b',
             }
           },
           animation: {
-            'fade-in': 'fadeIn 0.5s ease-out',
-            'slide-up': 'slideUp 0.6s ease-out',
-            'pulse-subtle': 'pulseSubtle 3s ease-in-out infinite',
+            'fade-in': 'fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+            'slide-up': 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+            'float': 'float 6s ease-in-out infinite',
+            'glow-pulse': 'glowPulse 2s ease-in-out infinite',
           },
           keyframes: {
             fadeIn: {
@@ -47,12 +48,16 @@
               '100%': { opacity: '1' },
             },
             slideUp: {
-              '0%': { transform: 'translateY(20px)', opacity: '0' },
+              '0%': { transform: 'translateY(30px)', opacity: '0' },
               '100%': { transform: 'translateY(0)', opacity: '1' },
             },
-            pulseSubtle: {
-              '0%, 100%': { transform: 'scale(1)', boxShadow: '0 0 0 rgba(163, 230, 53, 0)' },
-              '50%': { transform: 'scale(1.01)', boxShadow: '0 0 30px rgba(163, 230, 53, 0.3)' },
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-20px)' },
+            },
+            glowPulse: {
+              '0%, 100%': { boxShadow: '0 0 5px rgba(163, 230, 53, 0.2)' },
+              '50%': { boxShadow: '0 0 20px rgba(163, 230, 53, 0.5)' },
             }
           }
         }
@@ -85,6 +90,30 @@
 
 <body>
   <div id="root"></div>
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <script>
+    window.addEventListener('load', () => {
+      const sr = ScrollReveal({
+        origin: 'bottom',
+        distance: '40px',
+        duration: 1000,
+        delay: 200,
+        rotate: { x: 0, y: 0, z: 0 },
+        opacity: 0,
+        scale: 1,
+        easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+        mobile: true,
+        reset: false,
+        useDelay: 'always',
+        viewFactor: 0.2,
+      });
+
+      sr.reveal('.animate-fade-in');
+      sr.reveal('.bento-item', { interval: 150 });
+      sr.reveal('.glass-card', { interval: 100 });
+      sr.reveal('.hero-content > *', { interval: 100, origin: 'left' });
+    });
+  </script>
   <script type="module" src="/index.tsx"></script>
 </body>
 
