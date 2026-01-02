@@ -21,7 +21,7 @@ const defaultContent: ContentData = {
     process: {
         title: 'How It Works',
         subtitle: 'Three simple steps to turn your unwanted vehicle into cash today.',
-        image_url: '/process-bg.jpg',
+        image_url: '/process-image.png',
         step1Title: '1. Get Instant Offer',
         step1Text: 'Call us or use our online quote tool. Get a competitive market offer in minutes based on your vehicle details.',
         step2Title: '2. Free Towing',
@@ -87,6 +87,19 @@ export const SiteContentProvider: React.FC<{ children: React.ReactNode }> = ({ c
                     header: { ...defaultContent.header, ...data.content.header },
                     footer: { ...defaultContent.footer, ...data.content.footer },
                 };
+
+                // One-time Fix for broken process image
+                if (mergedContent.process.image_url === '/process-bg.jpg') {
+                    console.log('Fixing broken process image URL...');
+                    mergedContent.process.image_url = '/process-image.png';
+                    // Auto-save the fix
+                    await supabase.from('site_content').upsert({
+                        id: 'main',
+                        content: mergedContent,
+                        updated_at: new Date().toISOString(),
+                    });
+                }
+
                 setContent(mergedContent);
             }
         } catch (error) {

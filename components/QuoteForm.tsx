@@ -69,9 +69,8 @@ const QuoteForm: React.FC = () => {
 
       if (supabaseError) throw supabaseError;
 
-      // 2. Submit to Web3Forms
       const web3FormData = new FormData();
-      web3FormData.append("access_key", "89eb0916-cfe9-41f9-a0cb-14a8ecf84a2a");
+      web3FormData.append("access_key", import.meta.env.VITE_WEB3FORMS_ACCESS_KEY);
       web3FormData.append("subject", `New Vehicle Lead from ${formData.name}`);
       web3FormData.append("from_name", "Rob's Cash 4 Cars");
 
@@ -119,21 +118,21 @@ const QuoteForm: React.FC = () => {
   }
 
   return (
-    <div id="quote" className="w-full max-w-lg backdrop-blur-2xl bg-[#1a1d24]/95 border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
+    <div id="quote" className="w-full md:max-w-lg backdrop-blur-2xl bg-[#1a1d24]/95 border-y md:border border-white/10 md:rounded-2xl shadow-2xl overflow-hidden mt-4 md:mt-0">
       {/* Header */}
-      <div className="bg-gradient-to-br from-[#2a2d34] to-[#1a1d24] p-8 border-b border-white/5">
-        <h3 className="text-2xl font-display font-bold text-white flex items-center gap-2">
-          <Zap className="text-brand-green" size={28} fill="currentColor" />
+      <div className="bg-gradient-to-br from-[#2a2d34] to-[#1a1d24] p-6 md:p-8 border-b border-white/5">
+        <h3 className="text-xl md:text-2xl font-display font-bold text-white flex items-center gap-2">
+          <Zap className="text-brand-green" size={24} fill="currentColor" />
           <EditableText section="quote" field="title" value={content.quote.title} />
         </h3>
-        <p className="text-gray-400 font-medium text-sm mt-2">
+        <p className="text-gray-400 font-medium text-xs md:text-sm mt-2">
           <EditableText section="quote" field="subtitle" value={content.quote.subtitle} />
         </p>
       </div>
 
-      <div className="p-8">
+      <div className="p-5 md:p-8">
         {/* Progress */}
-        <div className="flex justify-between mb-10 px-2 relative">
+        <div className="flex justify-between mb-8 md:mb-10 px-2 relative">
           <div className="absolute top-1/2 left-0 w-full h-1.5 bg-[#2a2d34] -z-10 -translate-y-1/2 rounded-full"></div>
           <div className="absolute top-1/2 left-0 h-1.5 bg-brand-green -z-10 -translate-y-1/2 rounded-full transition-all duration-500" style={{ width: `${((step - 1) / 2) * 100}%` }}></div>
           {[1, 2, 3].map(i => (
@@ -151,7 +150,7 @@ const QuoteForm: React.FC = () => {
                   <label className="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">Year</label>
                   <input
                     type="number" name="year" value={formData.year} onChange={handleChange} placeholder="2010"
-                    className="w-full bg-[#0f1115] border border-white/10 text-white rounded-lg p-4 focus:ring-2 focus:ring-brand-green focus:border-transparent outline-none transition-all placeholder:text-gray-500"
+                    className="w-full bg-[#0f1115] border border-white/10 text-white text-base rounded-lg p-4 focus:ring-2 focus:ring-brand-green focus:border-transparent outline-none transition-all placeholder:text-gray-500"
                   />
                 </div>
                 <div>

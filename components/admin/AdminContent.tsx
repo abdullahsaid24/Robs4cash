@@ -55,7 +55,7 @@ const defaultContent: ContentData = {
     process: {
         title: 'How It Works',
         subtitle: 'Three simple steps to turn your unwanted vehicle into cash today.',
-        image_url: '/process-bg.jpg',
+        image_url: '/process-image.png',
         step1Title: '1. Get Instant Offer',
         step1Text: 'Call us or use our online quote tool. Get a competitive market offer in minutes based on your vehicle details.',
         step2Title: '2. Free Towing',

@@ -7,18 +7,28 @@ const Process: React.FC = () => {
   const { content } = useSiteContentContext();
 
   return (
-    <section id="how-it-works" className="relative py-24 overflow-hidden bg-[#0a0a0a]">
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0 opacity-50 md:opacity-40">
+    <section id="how-it-works" className="relative md:py-24 overflow-hidden bg-[#0a0a0a]">
+      {/* Mobile Banner Image */}
+      <div className="md:hidden w-full h-64 relative">
+        <img
+          src={content.process.image_url}
+          alt="Tow Service Background"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] to-transparent"></div>
+      </div>
+
+      {/* Desktop Background Image */}
+      <div className="hidden md:block absolute inset-0 z-0 opacity-40">
         <img
           src={content.process.image_url}
           alt="Tow Service Background"
           className="w-full h-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/50 via-transparent to-[#0a0a0a]/70 md:from-[#0a0a0a] md:via-[#0a0a0a]/90 md:to-[#0a0a0a]"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a]/90 to-[#0a0a0a]"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 py-12 md:py-0 sm:px-6 lg:px-8 relative z-10">
 
         {/* Header */}
         <div className="text-center mb-16">
